@@ -1,0 +1,121 @@
+{
+    "PLATFORM": {
+        "PLATFORMMANUFACTURERSTR": "Espressif",
+        "PLATFORMMODEL": "esp32s3",
+        "PLATFORMVERSION": "v0.1",
+        "PLATFORMSERIAL": "f4:12:fa:e3:91:ec"
+    },
+    "COMPONENTS": [
+        {
+            "COMPONENTCLASS": {
+                "COMPONENTCLASSREGISTRY": "2.23.133.18.3.1",
+                "COMPONENTCLASSVALUE": "00010008"
+            },
+            "MANUFACTURER": "xtensa",
+            "MODEL": "2 CPU core(s) 160000000 Hz",
+            "SERIAL": "2113559",
+            "REVISION": "v0.1",
+            "FIELDREPLACEABLE": "false"
+        },
+        {
+            "COMPONENTCLASS": {
+                "COMPONENTCLASSREGISTRY": "2.23.133.18.3.1",
+                "COMPONENTCLASSVALUE": "0006000A"
+            },
+            "MANUFACTURER": "232",
+            "MODEL": "2MB external flash",
+            "SERIAL": "2958320787165146318",
+            "FIELDREPLACEABLE": "Not defined"
+        },
+        {
+            "COMPONENTCLASS": {
+                "COMPONENTCLASSREGISTRY": "2.23.133.18.3.1",
+                "COMPONENTCLASSVALUE": "00090002"
+            },
+            "MANUFACTURER": "ESPRESSIF",
+            "MODEL": "98f2a71",
+            "SERIAL": "f4:12:fa:e3:91:ef",
+            "REVISION": "601",
+            "FIELDREPLACEABLE": "true",
+            "ADDRESSES": [
+                {
+                    "ETHERNETMAC": "f4:12:fa:e3:91:ef"
+                }
+            ]
+        },
+        {
+            "COMPONENTCLASS": {
+                "COMPONENTCLASSREGISTRY": "2.23.133.18.3.1",
+                "COMPONENTCLASSVALUE": "00090003"
+            },
+            "MANUFACTURER": "ESPRESSIF",
+            "MODEL": "ce9244d",
+            "SERIAL": "f4:12:fa:e3:91:ec",
+            "REVISION": " v7.0",
+            "FIELDREPLACEABLE": "true",
+            "ADDRESSES": [
+                {
+                    "WLANMAC": "f4:12:fa:e3:91:ec"
+                }
+            ]
+        },
+        {
+            "COMPONENTCLASS": {
+                "COMPONENTCLASSREGISTRY": "2.23.133.18.3.1",
+                "COMPONENTCLASSVALUE": "00090004"
+            },
+            "MANUFACTURER": "ESPRESSIF",
+            "MODEL": "963cad4",
+            "SERIAL": "f4:12:fa:e3:91:ee",
+            "REVISION": "Not defined",
+            "FIELDREPLACEABLE": "false",
+            "ADDRESSES": [
+                {
+                    "BLUETOOTHMAC": "f4:12:fa:e3:91:ee"
+                }
+            ]
+        },
+        {
+            "COMPONENTCLASS": {
+                "COMPONENTCLASSREGISTRY": "2.23.133.18.3.1",
+                "COMPONENTCLASSVALUE": "00130003"
+            },
+            "MANUFACTURER": "Not Specified",
+            "MODEL": "Not Specified",
+            "SERIAL": "3905484d01ac2dafc508b8574e716fc164b7798d2d8b1204149b8f46268ac024"
+        },
+        {
+            "COMPONENTCLASS": {
+                "COMPONENTCLASSREGISTRY": "2.23.133.18.3.1",
+                "COMPONENTCLASSVALUE": "00130005"
+            },
+            "MANUFACTURER": "Not Specified",
+            "MODEL": "Not Specified",
+            "SERIAL": "fcc1a1e96a699d6484a25c0f84993c5f9ea1d5839b4927026454d843661c268f"
+        },
+        {
+            "COMPONENTCLASS": {
+                "COMPONENTCLASSREGISTRY": "2.23.133.18.3.1",
+                "COMPONENTCLASSVALUE": "00130000"
+            },
+            "MANUFACTURER": "Not Specified",
+            "MODEL": "Not Specified",
+            "SERIAL": "6b3bb53fe7c1f84a"
+        },
+        {
+            "COMPONENTCLASS": {
+                "COMPONENTCLASSREGISTRY": "2.23.133.18.3.1",
+                "COMPONENTCLASSVALUE": "000E0000"
+            },
+            "MANUFACTURER": "Not Specified",
+            "MODEL": "1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1",
+            "SERIAL": "1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1, 1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0"
+        }
+    ],
+    "PROPERTIES": [
+        {
+            "PROPERTYNAME": "test",
+            "PROPERTYVALUE": "test"
+        }
+    ]
+}
