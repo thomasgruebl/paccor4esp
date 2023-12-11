@@ -44,6 +44,11 @@
 #include "esp_chip_info.h"
 #include "esp_flash.h"
 #include "esp_ota_ops.h"
+
+#include "esp_efuse.h"
+#include "esp_efuse_table.h"
+#include "soc/efuse_reg.h"
+
 #include "bootloader_common.h"
 #include "driver/gpio.h"
 
@@ -51,6 +56,15 @@
 #include "esp_log.h"
 
 #include "allcomponents.h"
+
+#define EFUSE_BLK2_RDATA0_REG (DR_REG_EFUSE_BASE + 0x58)
+//#define EFUSE_BLK2_RDATA1_REG (DR_REG_EFUSE_BASE + 0x05c)
+//#define EFUSE_BLK2_RDATA2_REG (DR_REG_EFUSE_BASE + 0x060)
+//#define EFUSE_BLK2_RDATA3_REG (DR_REG_EFUSE_BASE + 0x064)
+//#define EFUSE_BLK2_RDATA4_REG (DR_REG_EFUSE_BASE + 0x68)
+//#define EFUSE_BLK2_RDATA5_REG (DR_REG_EFUSE_BASE + 0x6c)
+//#define EFUSE_BLK2_RDATA6_REG (DR_REG_EFUSE_BASE + 0x70)
+//#define EFUSE_BLK2_RDATA7_REG (DR_REG_EFUSE_BASE + 0x74)
 /*----------------------------------------------------------------------------*/
 
 void get_base_mac_address()
@@ -89,7 +103,6 @@ void get_eth_mac_address()
 void get_wifi_mac_address()
 {
     uint8_t mac[6];
-
     ESP_ERROR_CHECK(esp_read_mac(mac, ESP_MAC_WIFI_STA));
     ESP_LOGI("WIFI_STA MAC", "%x:%x:%x:%x:%x:%x",
              mac[0],
@@ -279,6 +292,21 @@ void get_elf_hash()
     size_t size = sizeof(elf_hash);
     esp_app_get_elf_sha256(elf_hash, size);
     ESP_LOGI("ELF SHA256 checksum", "%s\n", elf_hash);
+}
+
+void get_efuse_key_block_hash()
+{
+    uint8_t blk[32];
+    memcpy(blk, (void *)EFUSE_BLK2_RDATA0_REG, sizeof(blk));
+
+    const size_t hash_len = sizeof(blk) * 2;
+    char *hash_str = malloc(hash_len + 1);
+    char *p_hash = hash_str;
+    for (int i = 0; i < sizeof(blk); ++i)
+    {
+        p_hash += sprintf(p_hash, "%.2x", blk[i]);
+    }
+    ESP_LOGI("RSA-PSS SHA-256 checksum", "%s\n", hash_str);
 }
 
 void get_gpio_info()

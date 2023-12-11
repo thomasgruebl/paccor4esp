@@ -39,4 +39,3 @@ void init_wifi(void);
   * @retval -
 */
 void init_bluetooth(void);
-

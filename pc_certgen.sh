@@ -60,9 +60,12 @@ PORT="/dev/ttyACM0"
 BAUD_RATE="115200"
 TARGET_DEVICE="esp32s3"
 
-declare -a SDKCONFIG_VARIABLES=(	"CONFIG_BT_ENABLED=y"
-									"CONFIG_PARTITION_TABLE_SINGLE_APP_LARGE=y"
+declare -a SDKCONFIG_VARIABLES=(	
+									"CONFIG_BT_ENABLED=y"
+									"CONFIG_PARTITION_TABLE_CUSTOM=y"	
+									"CONFIG_PARTITION_TABLE_OFFSET=0xa000"							
 									"CONFIG_APP_REPRODUCIBLE_BUILD=y"
+									"CONFIG_SECURE_BOOT=y"
 								)
 
 extractESPData() {
@@ -138,10 +141,6 @@ extractESPData() {
 # identical to original PACCOR script https://github.com/nsacyber/paccor/blob/main/scripts/windows/pc_certgen.sh
 createWorkspace() {
 	if [ ! -d "$workspace" ]; then
-		#if [ "$EUID" -ne 0 ]; then
-		#	echo "The first time this script is run, this script requires root.  Please run as root"
-		#	exit 1
-		#fi
 		mkdir "$workspace"
 		sudo chmod -R 777 "$workspace"
 		if [ $? -ne 0 ]; then
@@ -155,8 +154,8 @@ createWorkspace() {
 
 getMockEKCert() {
 	echo "ESP32 does not have a dedicated TPM. Generating an empty mock EK certificate..."
+	echo "Instead, the SHA-256 checksum of the secure boot v2 RSA-3072 signing key is stored in the certificate."
 	$(openssl req -x509 -nodes -days "$daysValid" -newkey "$sigalg" -out "$ekcert" -subj "/C=US/O=example.com/OU=mockEK" >> /dev/null)
-
 }
 
 createComponentListJSON() {

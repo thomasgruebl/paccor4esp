@@ -30,7 +30,7 @@
         {
             "COMPONENTCLASS": {
                 "COMPONENTCLASSREGISTRY": "2.23.133.18.3.1",
-                "COMPONENTCLASSVALUE": "00090002"
+                "COMPONENTCLASSVALUE": "00090000"
             },
             "MANUFACTURER": "ESPRESSIF",
             "MODEL": "98f2a71",
@@ -82,7 +82,7 @@
             },
             "MANUFACTURER": "Not Specified",
             "MODEL": "Not Specified",
-            "SERIAL": "3905484d01ac2dafc508b8574e716fc164b7798d2d8b1204149b8f46268ac024"
+            "SERIAL": "cf2002d8f45f6abf4e3ceb8f9925e85bc125b84ebf5b806841104f54ce83de41"
         },
         {
             "COMPONENTCLASS": {
@@ -100,7 +100,16 @@
             },
             "MANUFACTURER": "Not Specified",
             "MODEL": "Not Specified",
-            "SERIAL": "6b3bb53fe7c1f84a"
+            "SERIAL": "b5ae328f4c21df9b"
+        },
+        {
+            "COMPONENTCLASS": {
+                "COMPONENTCLASSREGISTRY": "2.23.133.18.3.1",
+                "COMPONENTCLASSVALUE": "00130000"
+            },
+            "MANUFACTURER": "Not Specified",
+            "MODEL": "Not Specified",
+            "SERIAL": "14dd0484da1bb895ec10aeb6620e7f060491b7ef613309d3cbb85371b2d4e0c6"
         },
         {
             "COMPONENTCLASS": {
@@ -109,7 +118,7 @@
             },
             "MANUFACTURER": "Not Specified",
             "MODEL": "1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1",
-            "SERIAL": "1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1, 1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0"
+            "SERIAL": "1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0"
         }
     ],
     "PROPERTIES": [

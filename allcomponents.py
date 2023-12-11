@@ -35,6 +35,7 @@ COMPCLASS_FIRMWARE = "00130003"
 COMPCLASS_BOOTLOADER = "00130005"
 COMPCLASS_GPIO = "000E0000"
 COMPCLASS_ELF = "00130000"
+COMPCLASS_EFUSE = "00130000"
 
 
 def match_patterns(patterns: list[Pattern[str]], log_file: str) -> list[str]:
@@ -137,6 +138,11 @@ def parse_log_file(log_file: str) -> dict[str, list[any]]:
         re.compile(r'(?<=ELF SHA256 checksum: )(.*)')                   # Serial
     ]
 
+    # contains Secure Boot V2 RSA-PSS SHA-256 digest of the public key from eFuse BLK2
+    regex_patterns_efuse = [
+        re.compile(r'(?<=RSA-PSS SHA-256 checksum: )(.*)')              # Serial
+    ]
+
     regex_patterns_gpio = [
         # The model field contains the bit array showing which GPIO pins are valid/invalid.
         re.compile(r'(?<=GPIO VALID PINS: )(.*)'),
@@ -154,6 +160,7 @@ def parse_log_file(log_file: str) -> dict[str, list[any]]:
     bootloader_data = match_patterns(regex_patterns_bootloader, log_file)
     gpio_data = match_patterns(regex_patterns_gpio, log_file)
     elf_data = match_patterns(regex_patterns_elf, log_file)
+    efuse_data = match_patterns(regex_patterns_efuse, log_file)
 
     # search match modifications
     cpu_data[1] = cpu_data[1] + ' ' + cpu_data[2] + ' Hz'
@@ -183,6 +190,9 @@ def parse_log_file(log_file: str) -> dict[str, list[any]]:
     elf_data.insert(0, 'Not Specified')
     elf_data.insert(0, 'Not Specified')
 
+    efuse_data.insert(0, 'Not Specified')
+    efuse_data.insert(0, 'Not Specified')
+
     gpio_data.insert(0, 'Not Specified')
 
     all_data['PLATFORM'] = platform_data
@@ -194,6 +204,7 @@ def parse_log_file(log_file: str) -> dict[str, list[any]]:
     all_data['FIRMWARE'] = firmware_data
     all_data['BOOTLOADER'] = bootloader_data
     all_data['ELF'] = elf_data
+    all_data['EFUSE'] = efuse_data
     all_data['GPIO'] = gpio_data
 
     return all_data
@@ -313,6 +324,7 @@ def construct_final_json(all_data: dict[str, list[str]]) -> str:
     json_keywords_firmware = ['MANUFACTURER', 'MODEL', 'SERIAL']
     json_keywords_bootloader = ['MANUFACTURER', 'MODEL', 'SERIAL']
     json_keywords_elf = ['MANUFACTURER', 'MODEL', 'SERIAL']
+    json_keywords_efuse = ['MANUFACTURER', 'MODEL', 'SERIAL']
     json_keywords_gpio = ['MANUFACTURER', 'MODEL', 'SERIAL']
 
     cpu_fields = dict(zip(json_keywords_cpu, all_data['CPU']))
@@ -323,6 +335,7 @@ def construct_final_json(all_data: dict[str, list[str]]) -> str:
     firmware_fields = dict(zip(json_keywords_firmware, all_data['FIRMWARE']))
     bootloader_fields = dict(zip(json_keywords_bootloader, all_data['BOOTLOADER']))
     elf_fields = dict(zip(json_keywords_elf, all_data['ELF']))
+    efuse_fields = dict(zip(json_keywords_efuse, all_data['EFUSE']))
     gpio_fields = dict(zip(json_keywords_gpio, all_data['GPIO']))
 
     json_dict = dict()
@@ -338,6 +351,7 @@ def construct_final_json(all_data: dict[str, list[str]]) -> str:
             generate_json_component(fields=firmware_fields, compclassvalue=COMPCLASS_FIRMWARE),
             generate_json_component(fields=bootloader_fields, compclassvalue=COMPCLASS_BOOTLOADER),
             generate_json_component(fields=elf_fields, compclassvalue=COMPCLASS_ELF),
+            generate_json_component(fields=efuse_fields, compclassvalue=COMPCLASS_EFUSE),
             generate_json_component(fields=gpio_fields, compclassvalue=COMPCLASS_GPIO)
         ]
     }

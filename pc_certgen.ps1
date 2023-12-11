@@ -61,9 +61,12 @@ $TARGET_DEVICE="esp32s3"
 
 $SDKCONFIG_VARIABLES = @(
 							"CONFIG_BT_ENABLED=y",
-							"CONFIG_PARTITION_TABLE_SINGLE_APP_LARGE=y",
-							"CONFIG_APP_REPRODUCIBLE_BUILD=y"
+							"CONFIG_PARTITION_TABLE_CUSTOM=y",
+							"CONFIG_PARTITION_TABLE_OFFSET=0xa000",
+							"CONFIG_APP_REPRODUCIBLE_BUILD=y",
+							"CONFIG_SECURE_BOOT=y"
 						)
+
 
 function extractESPData() {
 
@@ -167,8 +170,8 @@ function createWorkspace() {
 
 function getMockEKCert() {
 	echo "ESP32 does not have a dedicated TPM. Generating an empty mock EK certificate..."
+	echo "Instead, the SHA-256 checksum of the secure boot v2 RSA-3072 signing key is stored in the certificate."
 	
-	# Since the ESP32 does not have a dedicated TPM, an empty mock EK certificate is created.
 	$cert_params = @{
 		Type = 'Custom'
 		Subject = 'C=US,O=example.com,OU=mockEK'
@@ -247,7 +250,7 @@ function createSigningKeyPair() {
 			exit 1
 		}
 		Get-ChildItem "$certStoreLocation" | Where-Object { $_.Thumbprint -match ($newcert.Thumbprint) } | Remove-Item
-	} else { 
+	} else {
 		echo "Platform Signing file exists, skipping"
 	}
 }

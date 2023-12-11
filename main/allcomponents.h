@@ -123,10 +123,18 @@ void get_bootloader_hash(void);
 void get_elf_hash(void);
 
 /**
+  * @brief Extracts the contents of EFUSE_BLK2. EFUSE_BLK2 is used for storing the SHA-256 digest of the public key.
+        SHA-256 hash of public key modulus, exponent, pre-calculated R & M' values (represented as 776 bytes –
+        offsets 36 to 812 - as per the Signature Block Format). RSA-3072.
+  * @param  -
+  * @retval -
+*/
+void get_efuse_key_block_hash(void);
+
+/**
   * @brief  First bit array corresponds to valid pins 0->invalid, 1->valid. Second bit array corresponds to
    current input level of the GPIO pins 0->low, 1->high.
   * @param  -
   * @retval -
 */
 void get_gpio_info(void);
-

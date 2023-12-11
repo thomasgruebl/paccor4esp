@@ -24,7 +24,6 @@
 #include "allcomponents.c"
 /*----------------------------------------------------------------------------*/
 
-
 void app_main(void)
 {
     // nvs info
@@ -63,5 +62,13 @@ void app_main(void)
     // wps factory info
     get_wps_factory_info();
 
+    // read Secure Boot V2 RSA-PSS SHA-256 digest of the public key from eFuse BLK2
+    get_efuse_key_block_hash();
+
     get_heap_info();
+
+    /*while(1)
+    {
+        vTaskDelay(1000 / portTICK_PERIOD_MS);
+    }*/
 }
