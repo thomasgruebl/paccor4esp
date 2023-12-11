@@ -58,13 +58,7 @@
 #include "allcomponents.h"
 
 #define EFUSE_BLK2_RDATA0_REG (DR_REG_EFUSE_BASE + 0x58)
-//#define EFUSE_BLK2_RDATA1_REG (DR_REG_EFUSE_BASE + 0x05c)
-//#define EFUSE_BLK2_RDATA2_REG (DR_REG_EFUSE_BASE + 0x060)
-//#define EFUSE_BLK2_RDATA3_REG (DR_REG_EFUSE_BASE + 0x064)
-//#define EFUSE_BLK2_RDATA4_REG (DR_REG_EFUSE_BASE + 0x68)
-//#define EFUSE_BLK2_RDATA5_REG (DR_REG_EFUSE_BASE + 0x6c)
-//#define EFUSE_BLK2_RDATA6_REG (DR_REG_EFUSE_BASE + 0x70)
-//#define EFUSE_BLK2_RDATA7_REG (DR_REG_EFUSE_BASE + 0x74)
+
 /*----------------------------------------------------------------------------*/
 
 void get_base_mac_address()
