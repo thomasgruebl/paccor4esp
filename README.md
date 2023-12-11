@@ -48,6 +48,9 @@ The paccor project structure should look as follows:
     * Adjust the certificate parameters (such as serial number and validity)
     * Adjust the ESP-specific variables such as baud rate, serial port name and target device type
     * Extend/amend the ESP-specific sdkconfig variables if needed
+6. Adjust the partition table CSV file, the sdkconfig file and generate a new secure boot signing key.
+7. Remove the pc_testgen directory (this is just a sample build)
+8. Run pc_certgen.ps1 or pc_certgen.sh
 
 ## Troubleshooting
 
