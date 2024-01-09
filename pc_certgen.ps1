@@ -13,6 +13,11 @@
 	# 3. CMake
 	
 	# 4. Git
+	
+	# 5. Java
+		# Install Java and make sure to set $JAVA_HOME
+		
+	# run this script as administrator
 
 $timestamp=(Get-Date -UFormat "%Y%m%d%H%M%S")
 #### Project directories
@@ -22,6 +27,7 @@ $PROJECT_NAME=(Split-Path "$PROJECT_HOME" -Leaf)
 
 #### Scripts and executable
 $IDF_SCRIPT_PATH="$ESPRESSIF_IDF_HOME" + "tools/"
+$ESP_CRYPTOAUTH="$ESPRESSIF_IDF_HOME" + "components/esp-cryptoauthlib/esp_cryptoauth_utility/secure_cert_mfg.py"
 $policymaker_script="$PROJECT_HOME" + "referenceoptions.ps1"
 $extensions_script="$PROJECT_HOME" + "otherextensions.ps1"
 $signer_bin="$PROJECT_HOME" + "bin/signer.bat"
@@ -58,13 +64,26 @@ $pfxpassword="password"
 $PORT="COM3"
 $BAUD_RATE="115200"
 $TARGET_DEVICE="esp32s3"
+$SDA_PIN="16"
+$SCL_PIN="17"
 
 $SDKCONFIG_VARIABLES = @(
 							"CONFIG_BT_ENABLED=y",
 							"CONFIG_PARTITION_TABLE_CUSTOM=y",
+							#"CONFIG_PARTITION_TABLE_SINGLE_APP_LARGE=y",
 							"CONFIG_PARTITION_TABLE_OFFSET=0xa000",
 							"CONFIG_APP_REPRODUCIBLE_BUILD=y",
-							"CONFIG_SECURE_BOOT=y"
+							"CONFIG_SECURE_BOOT=y",
+							"CONFIG_ATECC608A_TNG=y",
+							"CONFIG_ATCA_MBEDTLS_ECDSA=y",
+							"CONFIG_ATCA_MBEDTLS_ECDSA_SIGN=y",
+							"CONFIG_ATCA_MBEDTLS_ECDSA_VERIFY=y",
+							# "CONFIG_MBEDTLS_ATCA_HW_ECDSA_SIGN=y",
+							# "CONFIG_MBEDTLS_ATCA_HW_ECDSA_VERIFY=y",
+							"CONFIG_ATCA_I2C_SDA_PIN=$SDA_PIN",
+							"CONFIG_ATCA_I2C_SCL_PIN=$SCL_PIN",
+							"CONFIG_ATCA_I2C_ADDRESS=0x6A",
+							"CONFIG_ESP_TLS_USE_SECURE_ELEMENT"
 						)
 
 
@@ -84,6 +103,10 @@ function extractESPData() {
 		New-Item -Path ${PROJECT_HOME} -Name "main" -ItemType "directory" 
 		exit 1
 	}
+	
+	### Install esp-cryptoauthlib
+	# pip install cryptography==41.0.4 		# esp-cryptoauth-utility dependency
+	# pip install esp-cryptoauth-utility
 
 	### Enable ESP-IDF in the current powershell session
 	. ${ESPRESSIF_IDF_HOME}/install.ps1
@@ -100,8 +123,12 @@ function extractESPData() {
 	[IO.File]::WriteAllText($cmake_home_path, "$cmake_home")
 	[IO.File]::WriteAllText($cmake_main_path, "$cmake_main")
 	
+	### Run the secure_cert_mfg.py script to provide I2C pin configuration, configure and provision the ATECC608B
+	#python ${ESP_CRYPTOAUTH} -p "$PORT" --target_chip "$TARGET_DEVICE" --i2c-sda-pin "$SDA_PIN" --i2c-scl-pin "$SCL_PIN"
+	#python ${ESP_CRYPTOAUTH} -p "$PORT" --target_chip "$TARGET_DEVICE" --signer-cert signercert.pem --signer-cert-private-key signerkey.pem --i2c-sda-pin "$SDA_PIN" --i2c-scl-pin "$SCL_PIN"
+
 	### Set target device
-	Set-Location -Path "$IDF_SCRIPT_PATH"
+	Set-Location -Path "$IDF_SCRIPT_PATH"	
 	python idf.py -C "$PROJECT_HOME" set-target "$TARGET_DEVICE"
 	
 	### Enable bluetooth, set partition app_size large and enable reproducible build
@@ -111,7 +138,7 @@ function extractESPData() {
 	}
 	
 	### Alternatively set sdkconfig variables using menuconfig
-	#python idf.py -C "$PROJECT_HOME" menuconfig
+	# python idf.py -C "$PROJECT_HOME" menuconfig
 
 	### Build project
 	python idf.py -C "$PROJECT_HOME" build
@@ -168,10 +195,8 @@ function createWorkspace() {
 	}
 }
 
-function getMockEKCert() {
-	echo "ESP32 does not have a dedicated TPM. Generating an empty mock EK certificate..."
-	echo "Instead, the SHA-256 checksum of the secure boot v2 RSA-3072 signing key is stored in the certificate."
-	
+function getEKReference() {
+	# Sample EK certificate. DO NOT use for production code. Extract your EK cert from the secure element of your choice.
 	$cert_params = @{
 		Type = 'Custom'
 		Subject = 'C=US,O=example.com,OU=mockEK'
@@ -283,7 +308,7 @@ function validate() {
 # function calls
 extractESPData
 createWorkspace
-getMockEKCert
+getEKReference
 createComponentListJSON
 createPolicyReferenceJSON
 createExtensionsJSON
