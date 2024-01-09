@@ -18,7 +18,7 @@
 	# 5. Java
 		# Install Java and make sure to set $JAVA_HOME
 	
-	# make this script executable by running 'chmod 777 pc_certgen.sh'
+	# make this script executable by running 'chmod 777 pc_certgen.sh' and run with sudo
 
 timestamp=$(date +%Y%m%d%H%M%S)
 #### Project directories
@@ -28,6 +28,7 @@ PROJECT_NAME=$(basename "$PROJECT_HOME")
 
 #### Scripts and executable
 IDF_SCRIPT_PATH="$ESPRESSIF_IDF_HOME""/tools"
+ESP_CRYPTOAUTH="$ESPRESSIF_IDF_HOME""/components/esp-cryptoauthlib/esp_cryptoauth_utility/secure_cert_mfg.py"
 policymaker_script="$PROJECT_HOME""/referenceoptions.sh"
 extensions_script="$PROJECT_HOME""/otherextensions.sh"
 signer_bin="$PROJECT_HOME""/bin/signer"
@@ -59,13 +60,22 @@ sigalg="rsa:2048"
 PORT="/dev/ttyACM0"
 BAUD_RATE="115200"
 TARGET_DEVICE="esp32s3"
+SDA_PIN="16"
+SCL_PIN="17"
 
-declare -a SDKCONFIG_VARIABLES=(	
-									"CONFIG_BT_ENABLED=y"
+declare -a SDKCONFIG_VARIABLES=(	"CONFIG_BT_ENABLED=y"
 									"CONFIG_PARTITION_TABLE_CUSTOM=y"	
 									"CONFIG_PARTITION_TABLE_OFFSET=0xa000"							
 									"CONFIG_APP_REPRODUCIBLE_BUILD=y"
 									"CONFIG_SECURE_BOOT=y"
+									"CONFIG_ATECC608A_TNG=y"
+									"CONFIG_ATCA_MBEDTLS_ECDSA=y"
+									"CONFIG_MBEDTLS_ATCA_HW_ECDSA_SIGN=y",
+									"CONFIG_MBEDTLS_ATCA_HW_ECDSA_VERIFY=y"
+									"CONFIG_ATCA_I2C_SDA_PIN=16"
+									"CONFIG_ATCA_I2C_SCL_PIN=17"
+									"CONFIG_ATCA_I2C_ADDRESS=0x6A"
+									"CONFIG_ESP_TLS_USE_SECURE_ELEMENT"
 								)
 
 extractESPData() {
@@ -89,6 +99,9 @@ extractESPData() {
 	
 	### Change serial port permissions
 	sudo chmod 666 "$PORT"
+	
+	### Install dbus-x11
+	sudo apt install dbus-x11
 
 	### Enable ESP-IDF in the current bash session
 	sh "$ESPRESSIF_IDF_HOME""/install.sh"
@@ -110,7 +123,7 @@ extractESPData() {
 	done
 	
 	### Alternatively set sdkconfig variables using menuconfig
-	#python idf.py -C "$PROJECT_HOME" menuconfig
+	# python idf.py -C "$PROJECT_HOME" menuconfig
 	
 	### Build project
 	python idf.py -C "$PROJECT_HOME" build
@@ -152,9 +165,8 @@ createWorkspace() {
 	return 0
 }
 
-getMockEKCert() {
-	echo "ESP32 does not have a dedicated TPM. Generating an empty mock EK certificate..."
-	echo "Instead, the SHA-256 checksum of the secure boot v2 RSA-3072 signing key is stored in the certificate."
+getEKReference() {
+	# Sample EK certificate. DO NOT use for production code. Extract your EK cert from the secure element of your choice.
 	$(openssl req -x509 -nodes -days "$daysValid" -newkey "$sigalg" -out "$ekcert" -subj "/C=US/O=example.com/OU=mockEK" >> /dev/null)
 }
 
@@ -238,7 +250,7 @@ validate() {
 # function calls
 extractESPData
 createWorkspace
-getMockEKCert
+getEKReference
 createComponentListJSON
 getPolicyReferenceJSON
 createExtensionsJSON
