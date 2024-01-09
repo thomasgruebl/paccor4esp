@@ -372,10 +372,10 @@ def construct_final_json(all_data: dict[str, list[str]]) -> str:
 
 if __name__ == "__main__":
     if os.path.isfile(LOG_FILE):
-        try:
+        if os.name == 'nt':
             with open(LOG_FILE, 'r', encoding="utf-16") as f:
                 log_file = f.read()
-        except UnicodeDecodeError:
+        else:
             with open(LOG_FILE, 'r', encoding="utf-8") as f:
                 log_file = f.read()
     else:
