@@ -66,9 +66,4 @@ void app_main(void)
     get_efuse_key_block_hash();
 
     get_heap_info();
-
-    /*while(1)
-    {
-        vTaskDelay(1000 / portTICK_PERIOD_MS);
-    }*/
 }

@@ -177,8 +177,8 @@ esp_chip_info_t get_chip_info()
 }
 
 void uint32_to_binary(uint32_t a, char* b) {
-    int i;
-    for (i = 31; i >= 0; i--) {
+    for (int i = 31; i >= 0; i--)
+	{
         b[31 - i] = (a & (1 << i)) ? '1' : '0';
     }
     b[32] = '\0';
