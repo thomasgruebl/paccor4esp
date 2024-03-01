@@ -2,14 +2,14 @@
   ******************************************************************************
   * @file    conf.c
   * @author  Thomas Grübl
-  * @brief   ESP-Paccor:
+  * @brief   paccor4esp:
   *          - This file initializes the NVS, WiFi and Bluetooth.
   *          - Can be deleted/amended if you initialize NVS, WiFi or Bluetooth with
   *            different configuration elsewhere in your project.
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2023 Thomas Grübl.
+  * Copyright (c) 2024 Thomas Grübl.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file

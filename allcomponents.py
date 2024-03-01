@@ -1,8 +1,23 @@
-# This script parses the ESP logdump and generates the componentlist JSON file
-
-# Replaces the functionality of https://github.com/nsacyber/paccor/blob/main/scripts/allcomponents.sh
-#   and https://github.com/nsacyber/paccor/blob/main/scripts/windows/allcomponents.ps1
-#   for the ESP32 use case
+'''
+  ******************************************************************************
+  * @file    allcomponents.py
+  * @author  Thomas Grübl
+  * @brief   paccor4esp:
+             - This script parses the ESP logdump and generates the componentlist JSON file
+             - Replaces the functionality of https://github.com/nsacyber/paccor/blob/main/scripts/allcomponents.sh
+             - and https://github.com/nsacyber/paccor/blob/main/scripts/windows/allcomponents.ps1
+             - for the ESP32 use case
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2024 Thomas Grübl.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  *
+  ******************************************************************************
+'''
 
 import json
 import os

@@ -1,4 +1,25 @@
 #!/bin/bash
+
+#   ******************************************************************************
+#   * @file    pc_certgen.sh
+#   * @author  Thomas Grübl
+#   * @brief   paccor4esp
+#   ******************************************************************************
+#   * @attention
+#   *
+#   * [REF] Parts of the code have been adapted from
+#   * https://github.com/nsacyber/paccor/blob/main/scripts/windows/pc_certgen.ps1
+#   *
+#   * All other parts:
+#   * Copyright (c) 2024 Thomas Grübl.
+#   * All rights reserved.
+#   *
+#   * This software is licensed under terms that can be found in the LICENSE file
+#   * in the root directory of this software component.
+#   *
+#   ******************************************************************************
+
+
 # Tested on Ubuntu 22.04.3 LTS and ESP32S3
 
 # Dependencies:

@@ -1,11 +1,11 @@
-# esp-paccor
+# paccor4esp
 
 A [Platform Attribute Certificate](https://trustedcomputinggroup.org/resource/tcg-platform-certificate-profile/) Creator for the ESP32 microcontroller.
 
 ## How to use
 
 1. Download the latest release of the official [PACCOR](https://github.com/nsacyber/paccor/releases/) repository
-2. Clone [this](https://github.com/thomasgruebl/esp-paccor) repository and copy the contents to a new folder in "{HOME}\paccor\scripts\esp" named "esp"
+2. Clone [this](https://github.com/thomasgruebl/paccor4esp) repository and copy the contents to a new folder in "{HOME}\paccor\scripts\esp" named "esp"
 
 The paccor project structure should look as follows:
 <pre>
@@ -69,6 +69,6 @@ The paccor project structure should look as follows:
 
 ## Copyright
 
-Parts of the code in the [pc_certgen.sh](https://github.com/thomasgruebl/esp-paccor/blob/main/pc_certgen.sh) and [pc_certgen.ps1](https://github.com/thomasgruebl/esp-paccor/blob/main/pc_certgen.ps1) files have been reused from [the official paccor repository](https://github.com/nsacyber/paccor). Copyright 2023 nsacyber. [LICENSE2](https://github.com/thomasgruebl/esp-paccor/blob/main/LICENSE2) applies.
+Parts of the code in the [pc_certgen.sh](https://github.com/thomasgruebl/paccor4esp/blob/main/pc_certgen.sh) and [pc_certgen.ps1](https://github.com/thomasgruebl/paccor4esp/blob/main/pc_certgen.ps1) files have been reused from [the official paccor repository](https://github.com/nsacyber/paccor). Copyright 2024 nsacyber. [LICENSE2](https://github.com/thomasgruebl/paccor4esp/blob/main/LICENSE2) applies.
 
-The rest of the project is licensed under the MIT License. Copyright 2023 thomasgruebl. [LICENSE](https://github.com/thomasgruebl/esp-paccor/blob/main/LICENSE) applies.
+The rest of the project is licensed under the MIT License. Copyright 2024 thomasgruebl. [LICENSE](https://github.com/thomasgruebl/paccor4esp/blob/main/LICENSE) applies.

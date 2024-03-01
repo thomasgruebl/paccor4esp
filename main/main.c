@@ -2,7 +2,7 @@
   ******************************************************************************
   * @file    main.c
   * @author  Thomas Grübl
-  * @brief   ESP-Paccor
+  * @brief   paccor4esp
   ******************************************************************************
   * @attention
   *
@@ -10,7 +10,7 @@
   * https://github.com/espressif/esp-idf/tree/master/examples
   *
   * All other parts:
-  * Copyright (c) 2023 Thomas Grübl.
+  * Copyright (c) 2024 Thomas Grübl.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file
